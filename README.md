@@ -1,2 +1,0 @@
-# CakeShop
-Cake shop.
