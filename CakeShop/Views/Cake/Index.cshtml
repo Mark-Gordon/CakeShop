@@ -1,0 +1,11 @@
+﻿@model IEnumerable<CakeShop.Models.Cake>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var cake in Model)
+{
+    <partial name="_CakeCard" model="cake" />
+}
+
