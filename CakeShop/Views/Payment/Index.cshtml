@@ -1,0 +1,109 @@
+﻿@model IEnumerable<CakeShop.Models.Cart>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+@{ if (Model.Count() > 0)
+    {
+        decimal finalCost = 0;
+        int count = 0;
+        foreach (var cost in Model)
+        {
+            finalCost += cost.TotalCost;
+        }
+        <h2>Your shopping cart</h2>
+        <h4>Here are the delicious pies in your shopping cart.</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Selected amount</th>
+                    <th>Pie</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach (var line in Model)
+                {
+
+                    <tr>
+                        <td class="text-center">
+                            @line.Amount
+                            
+
+                            <button id="editButton-@count" onclick="updateNumberOfItems(@count)">Edit</button>
+                            <form asp-controller="Payment" asp-action="UpdateNumberOfItemsInCart" method="post">
+                                <input type="hidden" name="cakeId" value=@line.Cake.CakeId />
+                                <input name ="amount" style="display:none" id="numberToBuyInput-@count" type="number" min="0" value=@line.Amount />
+                                <input type="submit" value="Update" style="display:none" id="updateButton-@count"/>
+                            </form>
+                            <form asp-controller="Payment" asp-action="DeleteFromCart" asp-route-cakeId=@line.Cake.CakeId method="post">
+                                <button>Delete</button>
+                            </form>
+
+
+                        </td>
+                        <td class="text-right">@line.Cake.Name</td>
+                        <td class="text-right">@line.Cake.Price.ToString("c")</td>
+                        <td class="text-right">@line.TotalCost.ToString("c")</td>
+                    </tr>
+                    count += 1;
+
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total:</td>
+                    <td class="text-right">
+                        @finalCost
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+        <div class="text-center">
+            <form asp-controller="Payment" asp-action="Processing" method="POST">
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_DVL3gb3noYDOPiMyQhMzEHkT"
+                        data-name="The Cake Company!"
+                        data-description="@finalCost for the cakes"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-locale="en"
+                        data-zip-code="true"
+                        data-label="Pay £@finalCost">
+                </script>
+            </form>
+        </div>
+    }
+    else
+    {
+        <h2>Cart is empty!</h2>
+    }
+    }
+
+<script>
+
+    function updateNumberOfItems(count) {
+        console.log("numberToBuyInput-" + count);
+       var editButton = document.getElementById("editButton-" + count);
+       var numberToBuyInput = document.getElementById("numberToBuyInput-"+count);
+       var updateButton = document.getElementById("updateButton-" + count);
+  if (editButton.style.display === "none") {
+     
+      editButton.style.display = "inline";
+      numberToBuyInput.style.display = "none";
+      updateButton.style.display = "none"
+  } else {
+ 
+      editButton.style.display = "none";
+      numberToBuyInput.style.display = "inline";
+      updateButton.style.display = "inline"
+  }
+}
+</script>
+
+

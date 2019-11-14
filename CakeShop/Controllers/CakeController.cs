@@ -27,9 +27,11 @@ namespace CakeShop.Controllers
 
         public IActionResult Index()
         {
+            //.AllCakes returns an Enumerable of the cakes
             return View(_cakeRepository.AllCakes);
         }
 
+        //Returns view of the cakes of type category
         public ViewResult List(string category)
         {
             IEnumerable<Cake> cakes;
@@ -42,7 +44,6 @@ namespace CakeShop.Controllers
             }
             else
             {
-               // System.Diagnostics.Debug.WriteLine("\n\n\n\n\n\nHERE\n\n\n\n\n");
                 cakes = _cakeRepository.AllCakes.Where(c => c.Category.Name == category)
                     .OrderBy(c => c.CakeId);
                 currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.Name == category)?.Name;
@@ -55,16 +56,12 @@ namespace CakeShop.Controllers
             });
         }
 
+        //Returns view with the details of cake when image is clicked on
         public IActionResult Details(int id)
         {
             Cake cake = _cakeRepository.GetCakeById(id);
 
             return View(cake);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

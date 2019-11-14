@@ -1,0 +1,10 @@
+﻿@model Int32
+
+<li>
+    <a asp-controller="Payment" asp-action="Index">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span id="cart-status">
+            @Model
+        </span>
+    </a>
+</li>

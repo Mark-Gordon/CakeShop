@@ -4,14 +4,16 @@ using CakeShop.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CakeShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191112094210_ChangeCartTotalCostToDecimal")]
+    partial class ChangeCartTotalCostToDecimal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,32 +101,6 @@ namespace CakeShop.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("CakeShop.Models.CompletedOrder", b =>
-                {
-                    b.Property<int>("CompletedOrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CakeId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CompletedOrderId");
-
-                    b.HasIndex("CakeId");
-
-                    b.ToTable("CompletedOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -335,13 +311,6 @@ namespace CakeShop.Migrations
                 });
 
             modelBuilder.Entity("CakeShop.Models.Cart", b =>
-                {
-                    b.HasOne("CakeShop.Models.Cake", "Cake")
-                        .WithMany()
-                        .HasForeignKey("CakeId");
-                });
-
-            modelBuilder.Entity("CakeShop.Models.CompletedOrder", b =>
                 {
                     b.HasOne("CakeShop.Models.Cake", "Cake")
                         .WithMany()

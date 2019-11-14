@@ -23,12 +23,11 @@ namespace CakeShop.Models.Repositories
 
         public IEnumerable<Cake> AllCakes
         {
+           
             get
             {
                 return _appDbContext.Cakes.Include(c => c.Category);
             }
         }
-
-
     }
 }

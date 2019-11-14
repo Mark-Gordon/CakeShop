@@ -4,5 +4,14 @@
 <partial name="_CakeCard" model="Model" />
 
 <div class="col-lg-4 col-md-4 col-xs-4">
-<h2><br /><br />@Model.LongDescription</h2>
+    <h2><br /><br />@Model.LongDescription</h2>
+</div>
+
+<div class="addToCart col-lg-12 col-md-12 col-xs-12" >
+    <p class="button">
+        <a class="btn btn-primary"
+           asp-controller="Payment"
+           asp-action="AddToCart"
+           asp-route-cakeId="@Model.CakeId">Add to cart</a>
+    </p>
 </div>
