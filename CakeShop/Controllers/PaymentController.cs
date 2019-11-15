@@ -28,8 +28,8 @@ namespace CakeShop.Controllers
         //Returns view of the cart
         public IActionResult Index()
         {
-            IEnumerable<Cart> cakes = _cartRepository.GetCartItems(User.Identity.Name);
-            return View(cakes);
+            Cart cart = _cartRepository.GetCart(User.Identity.Name);
+            return View(cart);
         }
 
         [Authorize]
@@ -67,7 +67,7 @@ namespace CakeShop.Controllers
             var service = new ChargeService();
             Charge charge = service.Create(options);
 
-            _cartRepository.StoreCompletedOrder(User.Identity.Name);
+         //// //  _cartRepository.StoreCompletedOrder(User.Identity.Name);
             //Clear cart after purchase
             _cartRepository.ClearCart(User.Identity.Name);
             

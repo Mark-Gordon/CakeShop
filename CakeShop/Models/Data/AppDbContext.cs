@@ -21,5 +21,7 @@ namespace CakeShop.Models.Data
         public DbSet<Cart> Cart { get; set; }
 
         public DbSet<CompletedOrder> CompletedOrder { get; set; }
+
+        public DbSet<Purchase> Purchase { get; set; }
     }
 }

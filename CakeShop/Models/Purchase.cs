@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace CakeShop.Models
 {
-    public class Cart
+    public class Purchase
     {
         [Key]
+        public int PurchaseId { get; set; }
         public int CartId { get; set; }
 
-        public string UserEmail { get; set; }
-        public int TotalAmount { get; set; }
-        public decimal TotalCost { get; set; }
-        public IEnumerable<Purchase> Purchase { get; set; }
-        
+        public Cake Cake { get; set; }
+
+        public decimal Cost { get; set; }
+
+        public int Amount { get; set; }
+
     }
 }

@@ -19,7 +19,7 @@ namespace CakeShop.Components
 
         public IViewComponentResult Invoke()
         {
-            int total = _cart.GetNumberOfItems(User.Identity.Name);        
+           int total = _cart.GetNumberOfItems(User.Identity.Name);        
 
             return View(total);
         }

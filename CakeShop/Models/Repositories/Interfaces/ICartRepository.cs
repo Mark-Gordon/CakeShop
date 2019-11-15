@@ -15,12 +15,12 @@ namespace CakeShop.Models.Repositories.Interfaces
 
         public void ClearCart(string email);
 
-        IEnumerable<Cart> GetCartItems(string email);
+        public Cart GetCart(string email);
 
         public void DeleteCartItemsById(string email, int cakeId);
 
         public void UpdateCartItemAmount(string email, int cakeId, int amount);
 
-        public void StoreCompletedOrder(string email);
+        //public void StoreCompletedOrder(string email);
     }
 }

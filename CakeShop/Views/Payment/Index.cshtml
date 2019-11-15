@@ -1,17 +1,17 @@
-﻿@model IEnumerable<CakeShop.Models.Cart>
+﻿@model CakeShop.Models.Cart
 @{
     ViewData["Title"] = "Index";
 }
 
 
 
-@{ if (Model.Count() > 0)
+@{ if (Model.Purchase.Count() > 0)
     {
         decimal finalCost = 0;
         int count = 0;
-        foreach (var cost in Model)
+        foreach (var cost in Model.Purchase)
         {
-            finalCost += cost.TotalCost;
+            finalCost += cost.Cost;
         }
         <h2>Your shopping cart</h2>
         <h4>Here are the delicious pies in your shopping cart.</h4>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 
-                @foreach (var line in Model)
+                @foreach (var line in Model.Purchase)
                 {
 
                     <tr>
@@ -48,7 +48,7 @@
                         </td>
                         <td class="text-right">@line.Cake.Name</td>
                         <td class="text-right">@line.Cake.Price.ToString("c")</td>
-                        <td class="text-right">@line.TotalCost.ToString("c")</td>
+                        <td class="text-right">@line.Cost.ToString("c")</td>
                     </tr>
                     count += 1;
 
